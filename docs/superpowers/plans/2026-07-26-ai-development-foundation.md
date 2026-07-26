@@ -19,6 +19,7 @@ This plan creates the toolchain, documentation, source boundaries, and a blank b
 ### Task 1: Create the Vite and TypeScript Toolchain
 
 **Files:**
+
 - Create: `package.json`
 - Create: `package-lock.json` through npm
 - Create: `index.html`
@@ -190,6 +191,7 @@ git commit -m "build: add Phaser Vite toolchain"
 ### Task 2: Add the Minimal Phaser 4 Boot Shell
 
 **Files:**
+
 - Create: `playwright.config.ts`
 - Create: `tests/e2e/boot.spec.ts`
 - Create: `src/presentation/phaser/FoundationScene.ts`
@@ -350,6 +352,7 @@ git commit -m "feat: add minimal Phaser boot shell"
 ### Task 3: Enforce Code Quality and Layer Boundaries
 
 **Files:**
+
 - Create: `eslint.config.js`
 - Create: `dependency-cruiser.config.cjs`
 
@@ -465,6 +468,7 @@ git commit -m "build: enforce source architecture boundaries"
 ### Task 4: Write the Canonical Agent and Architecture Guides
 
 **Files:**
+
 - Create: `AGENTS.md`
 - Create: `docs/development/AI_DEVELOPMENT_CYCLE.md`
 - Create: `docs/development/ARCHITECTURE.md`
@@ -550,6 +554,7 @@ git commit -m "docs: add agent development and architecture guides"
 ### Task 5: Create the Game-Design Decision System
 
 **Files:**
+
 - Create: `docs/gameDesign/Decisions/README.md`
 - Create: `docs/gameDesign/Decisions/000-template.md`
 
@@ -614,6 +619,7 @@ git commit -m "docs: add game design decision records"
 ### Task 6: Add CI and Verify the Complete Foundation
 
 **Files:**
+
 - Create: `.github/workflows/quality.yml`
 - Modify only if checks reveal defects: files introduced by Tasks 1–5
 
