@@ -10,6 +10,36 @@ module.exports = {
       },
     },
     {
+      name: 'pure-production-does-not-use-node-core',
+      severity: 'error',
+      from: {
+        path: '^src/(?:core|application|content)(?:/|$)',
+        pathNot: '[.]test[.]ts$',
+      },
+      to: {
+        dependencyTypes: ['core'],
+      },
+    },
+    {
+      name: 'pure-production-does-not-use-external-packages',
+      severity: 'error',
+      from: {
+        path: '^src/(?:core|application|content)(?:/|$)',
+        pathNot: '[.]test[.]ts$',
+      },
+      to: {
+        dependencyTypes: [
+          'npm',
+          'npm-bundled',
+          'npm-dev',
+          'npm-no-pkg',
+          'npm-optional',
+          'npm-peer',
+          'npm-unknown',
+        ],
+      },
+    },
+    {
       name: 'core-is-independent',
       severity: 'error',
       from: {

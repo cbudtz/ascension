@@ -4,17 +4,18 @@ This is a routing index, not a tutorial. Read only the source needed for the cur
 
 ## Skill routing
 
-| Skill or workflow              | Use when                                               | Immediate next action                                   |
-| ------------------------------ | ------------------------------------------------------ | ------------------------------------------------------- |
-| Brainstorming                  | Adding a feature or changing behavior                  | Clarify intent and get agreement on a small design.     |
-| Writing plans                  | A design is approved                                   | Produce ordered, verifiable implementation tasks.       |
-| Test-driven development        | Implementing a feature or bug fix                      | Write and run the smallest failing test.                |
-| Systematic debugging           | A test fails unexpectedly or behavior is unexplained   | Reproduce and gather evidence before changing code.     |
-| Subagent-driven development    | An approved plan has independent tasks in this session | Assign isolated tasks and review each result.           |
-| Executing plans                | An approved plan will be implemented in checkpoints    | Execute the next batch, verify it, and report evidence. |
-| Receiving code review          | Acting on review feedback                              | Verify the feedback against code and requirements.      |
-| Requesting code review         | Implementation and checks are complete                 | Request a scope and correctness review.                 |
-| Verification before completion | About to claim success                                 | Run fresh required checks and cite their output.        |
+| Skill or workflow              | Use when                                               | Immediate next action                                                          |
+| ------------------------------ | ------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| Brainstorming                  | Adding a feature or changing behavior                  | Clarify intent and get agreement on a small design.                            |
+| Writing plans                  | A design is approved                                   | Produce ordered, verifiable implementation tasks.                              |
+| Test-driven development        | Implementing a feature or bug fix                      | Write and run the smallest failing test.                                       |
+| Systematic debugging           | A test fails unexpectedly or behavior is unexplained   | Reproduce and gather evidence before changing code.                            |
+| Subagent-driven development    | An approved plan has independent tasks in this session | Assign isolated tasks and review each result.                                  |
+| Executing plans                | An approved plan will be implemented in checkpoints    | Execute the next batch, verify it, and report evidence.                        |
+| Receiving code review          | Acting on review feedback                              | Verify the feedback against code and requirements.                             |
+| Requesting code review         | Implementation and checks are complete                 | Request a scope and correctness review.                                        |
+| Verification before completion | About to claim success                                 | Run fresh required checks and cite their output.                               |
+| Finishing a development branch | Implementation and checks are complete                 | Present integration, PR, or keep-branch options without merging automatically. |
 
 ## Authoritative sources
 

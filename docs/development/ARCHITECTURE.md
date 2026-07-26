@@ -49,13 +49,15 @@ The six enforced rules are: no circular dependencies; `core` imports no source l
 
 External packages do not bypass these rules. In particular, Phaser imports are allowed only in `presentation` and `bootstrap`.
 
+`core`, `application`, and `content` form the pure layers. Their production modules may not import Node core modules or npm packages, and their dedicated TypeScript compilation excludes browser libraries and ambient types. Pure-layer `*.test.ts` modules may import Vitest, but production modules may not.
+
 ## Layer contracts
 
 ### Core
 
 - **Responsibility:** authoritative game state, entities, value objects, deterministic rules, and typed domain results.
 - **Public usage:** application use cases invoke pure operations and consume explicit results.
-- **Dependencies:** no project layer, Phaser, DOM, persistence, ambient time, or unseeded randomness. The dedicated core TypeScript configuration excludes browser libraries.
+- **Dependencies:** no project layer, Phaser, browser or Node APIs, external packages, persistence, ambient time, or unseeded randomness.
 
 An invalid action returns a typed failure and leaves state unchanged. Do not partially mutate and then report failure.
 
@@ -63,7 +65,7 @@ An invalid action returns a typed failure and leaves state unchanged. Do not par
 
 - **Responsibility:** use cases that coordinate core behavior and define ports required from the outside world.
 - **Public usage:** presentation calls use cases; bootstrap injects adapter implementations.
-- **Dependencies:** `core` only.
+- **Dependencies:** `core` only; no browser or Node APIs or external packages in production modules.
 
 Define persistence and seeded-randomness interfaces here when a use case needs them. Infrastructure implements both ports; bootstrap only constructs and injects those adapters. Passing a seed or port makes outcomes replayable and testable.
 
@@ -71,7 +73,7 @@ Define persistence and seeded-randomness interfaces here when a use case needs t
 
 - **Responsibility:** declarative, data-first definitions such as technologies, structures, species, maps, and balance values.
 - **Public usage:** bootstrap loads definitions and passes validated data into the system.
-- **Dependencies:** `core` only, generally for types and value construction.
+- **Dependencies:** `core` only, generally for types and value construction; no browser or Node APIs or external packages in production modules.
 
 Content describes facts; it does not orchestrate use cases, render itself, or access services.
 
@@ -123,4 +125,4 @@ npm run lint
 npm run typecheck
 ```
 
-`arch:check` enforces the dependency graph in `dependency-cruiser.config.cjs`; lint restricts Phaser imports; type checking compiles `core` separately without DOM libraries. `npm run check` runs these with formatting, tests, and the production build.
+`arch:check` enforces the dependency graph and pure-layer production import restrictions in `dependency-cruiser.config.cjs`; lint restricts Phaser imports; type checking uses `tsconfig.pure.json` to compile `core`, `application`, and `content` without browser libraries or ambient types. `npm run check` runs these with formatting, tests, and the production build.

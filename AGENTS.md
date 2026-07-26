@@ -35,6 +35,7 @@ See the concise [skill and source reference](docs/development/REFERENCE.md) for 
 - `core` is pure TypeScript and independent of every other source layer.
 - `application` owns use cases and ports; it may depend only on `core`.
 - `content` is declarative and may depend only on `core`.
+- Production code in these three pure layers may not use browser or Node APIs or external packages.
 - `presentation` and `infrastructure` are adapters; each may depend only on `application` and `core`.
 - Phaser imports belong only in `presentation` or `bootstrap`.
 - `bootstrap` is the composition root and may wire all layers.

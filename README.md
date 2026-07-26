@@ -11,10 +11,18 @@ The repository currently contains the development foundation only: toolchain, ar
 - Node.js 24
 - npm
 
-## Commands
+## Setup
 
 ```sh
 npm install
+npx playwright install chromium
+```
+
+The second command installs the Chromium browser used by `npm run test:e2e`.
+
+## Commands
+
+```sh
 npm run dev
 npm run check
 npm run test:e2e
