@@ -4,7 +4,7 @@
 
 Establish a small, enforceable development system before game implementation begins. It must keep the turn-based simulation independent from Phaser, give coding agents one canonical workflow, and preserve game-design reasoning as explicit decisions.
 
-This foundation covers documentation and planned quality gates only. Phaser/Vite scaffolding and the first planetary-development feature belong to the subsequent implementation plan.
+This foundation covers documentation, executable quality gates, and a minimal Phaser 4/Vite boot shell that proves the stack. The first planetary-development feature belongs to a subsequent design and implementation plan.
 
 ## Chosen Approach
 
@@ -60,7 +60,7 @@ Every task follows the same bounded loop:
 5. **Fast checks:** format, lint, dependency boundaries, type-check, and focused tests.
 6. **Full checks:** all tests and a production build; run browser smoke tests when presentation or integration changes.
 7. **Review:** inspect the diff for scope creep, duplicated rules, boundary violations, leaked event listeners, and accidental nondeterminism.
-8. **Record:** add a decision for a durable architecture rule or game mechanic; only proposed decisions may be amended.
+8. **Record:** add a decision for a durable architecture rule or game mechanic; accepted decision content is immutable, apart from status and supersession metadata.
 9. **Deliver:** make one logical commit and summarize behavior, verification evidence, and remaining risks.
 
 Agents stop and clarify when acceptance criteria conflict, a choice would invalidate an accepted decision, or destructive migration is required. They do not broaden a task into unrelated cleanup.
@@ -78,12 +78,13 @@ The project will expose stable package scripts so local work and CI use the same
 - `npm run build` — production bundle
 - `npm run check` — required non-browser checks in one command
 
-The implementation plan will select and configure:
+The implementation plan will configure:
 
 - ESLint for code rules and restricted imports
 - dependency-cruiser for cross-layer dependency enforcement and cycle detection
 - Vitest for pure simulation and integration tests
 - Playwright for a small number of critical browser flows
+- Phaser 4 as a presentation adapter
 - TypeScript strict mode and Vite production builds
 
 CI will run architecture checks independently from tests so a boundary failure is immediately identifiable.
@@ -97,6 +98,10 @@ docs/
     AI_DEVELOPMENT_CYCLE.md
     ARCHITECTURE.md
     REFERENCE.md
+    Decisions/
+      README.md
+      000-template.md
+      001-phaser-4-presentation-adapter.md
   gameDesign/
     Decisions/
       README.md
@@ -107,10 +112,11 @@ docs/
 - `AI_DEVELOPMENT_CYCLE.md` contains the task loop and completion checklist.
 - `ARCHITECTURE.md` owns layer definitions and dependency rules.
 - `REFERENCE.md` contains a condensed skill-routing table and authoritative external links, avoiding copied tutorials.
-- `Decisions/README.md` defines naming, status, and supersession rules.
-- `000-template.md` captures context, decision, alternatives, consequences, validation, and status.
+- `development/Decisions` stores architecture decisions, beginning with Phaser 4 as the replaceable presentation adapter.
+- `gameDesign/Decisions` stores player-facing rules separately from technical choices.
+- Each decision directory defines naming, status, supersession rules, and a template covering context, decision, alternatives, consequences, validation, and status.
 
-Accepted decisions are immutable records. A later change creates a new decision that supersedes the old one instead of rewriting history. Early exploratory ideas are marked `Proposed`, not treated as settled mechanics.
+Accepted decision content is immutable; only status and supersession metadata may change. A later change creates a new decision that supersedes the old one instead of rewriting its reasoning. Early exploratory ideas are marked `Proposed`, not treated as settled mechanics.
 
 ## Condensed Agent Skill Routing
 
