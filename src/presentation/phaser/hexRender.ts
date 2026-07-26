@@ -18,6 +18,26 @@ export function pixelToAxial(x: number, y: number, size: number): AxialHex {
   return axialRound(q, r);
 }
 
+/**
+ * Pointy-top hex vertex list for Phaser.GameObjects.Polygon.
+ * Phaser mis-renders polygons whose points include negatives, so vertices are
+ * shifted into the positive quadrant. With the shape's centered origin, the
+ * polygon's visual center still sits on the Game Object position.
+ */
+export function pointyHexPolygonPoints(size: number): number[] {
+  const vertices: Array<{ x: number; y: number }> = [];
+  for (let i = 0; i < 6; i += 1) {
+    const angle = (Math.PI / 180) * (60 * i - 30);
+    vertices.push({
+      x: size * Math.cos(angle),
+      y: size * Math.sin(angle),
+    });
+  }
+  const minX = Math.min(...vertices.map((vertex) => vertex.x));
+  const minY = Math.min(...vertices.map((vertex) => vertex.y));
+  return vertices.flatMap((vertex) => [vertex.x - minX, vertex.y - minY]);
+}
+
 function axialRound(q: number, r: number): AxialHex {
   const s = -q - r;
   let rq = Math.round(q);

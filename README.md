@@ -33,11 +33,13 @@ npm run build
 
 The control panel is a **right sidebar** on landscape displays and a **bottom dock** on portrait / vertical displays. Use the buttons there, or the keyboard shortcuts:
 
-- **End turn** — `E` / `Enter`
-- **Build select** — `1`–`4` (Factory / Lab / Farm / Transit Tube); click a hex to queue
+- **End turn** — `E` / `Enter` (unlocks science after day 0)
+- **Build select** — `1`–`4` (Factory / Lab / Farm / Transit Tube) once the matching blueprint is researched; click a hex beside the capital network to queue
 - **Workers** — Research / Industry / Prosperity / Balance (`Q` / `W` / `A` / `S`) after Colony Planning
 - **Cycle research** — `R` (after first turn)
 - **System view** — panel button or `V` after Orbital Cartography; **Back to planet** or `B` from the system teaser
+
+The gold-ringed center hex is the capital. Buildings need researched blueprints before they can be queued.
 
 ## Project guides
 

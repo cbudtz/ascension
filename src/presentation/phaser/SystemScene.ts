@@ -124,7 +124,7 @@ export class SystemScene extends Phaser.Scene {
     this.controls.update({
       view: 'system',
       snapshot,
-      selectedBuilding: 'factory',
+      selectedBuilding: null,
       message: 'Solar system teaser — more worlds locked for later updates',
       activeTechName: active?.name ?? null,
       projectLabel: snapshot.construction
