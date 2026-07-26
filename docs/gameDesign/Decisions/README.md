@@ -18,17 +18,18 @@ Allowed statuses are `Proposed`, `Accepted`, `Superseded`, and `Rejected`.
 
 ## Current state
 
-Eight **Proposed** records and the [planetary slice spec](../../superpowers/specs/2026-07-26-planetary-slice-design.md) capture the homeworld vertical slice. None are **Accepted** until explicitly reviewed.
+Nine **Proposed** records and the [planetary slice spec](../../superpowers/specs/2026-07-26-planetary-slice-design.md) capture the homeworld vertical slice. None are **Accepted** until explicitly reviewed.
 
-| Record                                                | Topic                                            |
-| ----------------------------------------------------- | ------------------------------------------------ |
-| [001](001-planetary-slice-scope.md)                   | Slice scope, milestone victory, deferred systems |
-| [002](002-homeworld-hex-map.md)                       | 37-hex revealed homeworld, terrain bonuses       |
-| [003](003-worker-economy-and-capital.md)              | Capital baseline, 3 workers, R/I/P tracks        |
-| [004](004-prosperity-growth-pool.md)                  | Prosperity pool, Farms, population growth        |
-| [005](005-construction-and-industry-pacing.md)        | Queue, 5 industry cost, 2-turn first build       |
-| [006](006-civ-style-research-tree.md)                 | Civ-style tree, eight techs, proposed names      |
-| [007](007-solar-system-teaser.md)                     | Orbital Cartography, locked planets              |
-| [008](008-ascendancy-inspired-2d-hex-presentation.md) | 2D hex art direction                             |
+| Record                                                | Topic                                             |
+| ----------------------------------------------------- | ------------------------------------------------- |
+| [001](001-planetary-slice-scope.md)                   | Slice scope, milestone victory, deferred systems  |
+| [002](002-homeworld-hex-map.md)                       | 37-hex revealed homeworld, terrain bonuses        |
+| [003](003-worker-economy-and-capital.md)              | Capital baseline, workers, Colony Planning unlock |
+| [004](004-prosperity-growth-pool.md)                  | Prosperity pool, Farms, population growth         |
+| [005](005-construction-and-industry-pacing.md)        | Queue, 5 industry cost, 2-turn first build        |
+| [006](006-civ-style-research-tree.md)                 | Civ-style tree, eight techs, proposed names       |
+| [007](007-solar-system-teaser.md)                     | Orbital Cartography, locked planets               |
+| [008](008-ascendancy-inspired-2d-hex-presentation.md) | 2D hex art direction                              |
+| [009](009-research-costs-and-capital-baseline.md)     | RP costs, capital +1 R/I                          |
 
-Adjacency synergies and interstellar travel remain future tech branches (`Ecological Synergy`, `Star Lane Anatomy`).
+**Xenobiological Dig** and **Star Lane Anatomy** are separate future branches from the science path; xeno-site and travel complexity unlock later.

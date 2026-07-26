@@ -16,18 +16,20 @@ The design adopts Civ I/II clarity for research while updating Ascendancy’s pl
 - Slice 1 ships **eight visible nodes** (see planetary slice spec); five are actionable, three locked placeholders.
 - Proposed slice 1 technologies:
 
-| Tech                        | Prereqs                     | Effect                     |
-| --------------------------- | --------------------------- | -------------------------- |
-| Colony Planning             | —                           | Queue on bonus hexes       |
-| Industrial Foundations      | —                           | Factory blueprint          |
-| Research Methods            | —                           | Lab blueprint              |
-| Environmental Encapsulation | —                           | Farm blueprint             |
-| Orbital Cartography         | Research Methods            | Solar system view          |
-| Star Lane Anatomy           | Orbital Cartography         | Locked (travel)            |
-| Ecological Synergy          | Environmental Encapsulation | Locked (adjacency)         |
-| Mass Fabrication            | Industrial Foundations      | Locked (advanced industry) |
+| Tech                        | Prereqs                | Effect                            |
+| --------------------------- | ---------------------- | --------------------------------- |
+| Colony Planning             | —                      | **Change worker focus**           |
+| Industrial Foundations      | —                      | Factory blueprint                 |
+| Research Methods            | —                      | Lab blueprint                     |
+| Environmental Encapsulation | —                      | Farm blueprint                    |
+| Orbital Cartography         | Research Methods       | Solar system view                 |
+| Xenobiological Dig          | Research Methods       | Locked (xeno sites / dig bonuses) |
+| Star Lane Anatomy           | Orbital Cartography    | Locked (travel)                   |
+| Mass Fabrication            | Industrial Foundations | Locked (advanced industry)        |
 
-- Research output = assigned research workers + Lab bonus (when built), applied to the active tech each turn.
+Placement on unoccupied buildable hexes is allowed from turn 1 **after** the matching blueprint tech is researched. Colony Planning does not gate building placement.
+
+Research costs: see decision 009 (Colony Planning **3 RP**, blueprints **5 RP**, Orbital **7 RP**).
 
 ## Alternatives
 
@@ -43,4 +45,4 @@ The design adopts Civ I/II clarity for research while updating Ascendancy’s pl
 
 ## Validation
 
-Player researches Orbital Cartography after Research Methods, sees solar view, and cannot complete locked leaf techs. Switching away from a partially researched tech and back retains progress in unit tests.
+Player researches Colony Planning first, can then change worker focus, researches building blueprints and Orbital Cartography, and cannot complete **Xenobiological Dig** or other locked leaf techs in slice 1. Switching away from a partially researched tech and back retains progress in unit tests.

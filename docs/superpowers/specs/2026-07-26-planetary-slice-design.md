@@ -24,7 +24,8 @@ Build a **Factory**, a **Lab**, and a **Farm** on the homeworld. The capital pro
 
 - **Capital only** — no separate starter Factory, Lab, or Farm.
 - Capital provides baseline R/I/P each turn.
-- **3 workers**, default auto-allocation **1 / 1 / 1** (research / industry / farming), with player override.
+- **3 workers**, fixed at **1 / 1 / 1** (research / industry / farming) until **Colony Planning** is researched.
+- After Colony Planning, the player may **change worker focus** (presets or sliders). Default remains 1/1/1 until changed.
 
 ## Worker and output model
 
@@ -48,18 +49,24 @@ Build a **Factory**, a **Lab**, and a **Farm** on the homeworld. The capital pro
 
 Full tree visible from turn 1. Five nodes matter for this slice; three are locked placeholders for later systems.
 
-| Tech                            | Prereqs                     | Unlocks                                        |
-| ------------------------------- | --------------------------- | ---------------------------------------------- |
-| **Colony Planning**             | —                           | Queue structures on non-capital bonus hexes    |
-| **Industrial Foundations**      | —                           | Factory blueprint                              |
-| **Research Methods**            | —                           | Lab blueprint                                  |
-| **Environmental Encapsulation** | —                           | Farm blueprint                                 |
-| **Orbital Cartography**         | Research Methods            | Solar system view (homeworld + locked planets) |
-| **Star Lane Anatomy**           | Orbital Cartography         | _Locked_ — interstellar travel (future)        |
-| **Ecological Synergy**          | Environmental Encapsulation | _Locked_ — adjacency bonuses (future)          |
-| **Mass Fabrication**            | Industrial Foundations      | _Locked_ — advanced industry (future)          |
+| Tech                            | Prereqs                | Unlocks                                         |
+| ------------------------------- | ---------------------- | ----------------------------------------------- |
+| **Colony Planning**             | —                      | **Change worker focus** (R / I / farming split) |
+| **Industrial Foundations**      | —                      | Factory blueprint                               |
+| **Research Methods**            | —                      | Lab blueprint                                   |
+| **Environmental Encapsulation** | —                      | Farm blueprint                                  |
+| **Orbital Cartography**         | Research Methods       | Solar system view (homeworld + locked planets)  |
+| **Xenobiological Dig**          | Research Methods       | _Locked_ — xeno sites / dig bonuses (future)    |
+| **Star Lane Anatomy**           | Orbital Cartography    | _Locked_ — interstellar travel (future)         |
+| **Mass Fabrication**            | Industrial Foundations | _Locked_ — advanced industry (future)           |
 
-Names nod to Ascendancy where appropriate (`Environmental Encapsulation`, `Star Lane Anatomy`) while keeping Civ-style clarity for roots and branches.
+Queueing structures on unoccupied buildable hexes is available from turn 1 once the relevant **blueprint** technology is researched. Colony Planning does not gate placement; it gates **worker reassignment**.
+
+Names nod to Ascendancy where appropriate (`Environmental Encapsulation`, `Star Lane Anatomy`, `Xenobiological Dig`) while keeping Civ-style clarity for roots and branches.
+
+## Research costs (proposed)
+
+See decision 009. Summary: Colony Planning **3 RP**; building blueprints **5 RP**; Orbital Cartography **7 RP**. Capital provides **+1 research** and **+1 industry** per turn before workers.
 
 ## Turns
 
