@@ -11,7 +11,8 @@ src/
 ├── content/              Declarative game definitions
 ├── infrastructure/       Persistence and other external-service adapters
 ├── presentation/
-│   └── phaser/           Phaser rendering, input, and Scene adapters
+│   ├── phaser/           Phaser rendering, input, and Scene adapters
+│   └── ui/               DOM control surfaces (sidebar / bottom dock)
 └── bootstrap/            Composition root and process startup
 ```
 

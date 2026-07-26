@@ -29,15 +29,15 @@ npm run test:e2e
 npm run build
 ```
 
-## Controls (planet view)
+## Controls
 
-- `E` / `Enter` — end turn
-- `1`–`4` — select Factory / Lab / Farm / Transit Tube
-- Click hex — queue selected building
-- `Q` / `W` / `A` — focus all workers on research / industry / prosperity (after Colony Planning)
-- `S` — balanced workers
-- `R` — cycle researchable technologies (after first turn)
-- `V` — solar system (after Orbital Cartography)
+The control panel is a **right sidebar** on landscape displays and a **bottom dock** on portrait / vertical displays. Use the buttons there, or the keyboard shortcuts:
+
+- **End turn** — `E` / `Enter`
+- **Build select** — `1`–`4` (Factory / Lab / Farm / Transit Tube); click a hex to queue
+- **Workers** — Research / Industry / Prosperity / Balance (`Q` / `W` / `A` / `S`) after Colony Planning
+- **Cycle research** — `R` (after first turn)
+- **System view** — panel button or `V` after Orbital Cartography; **Back to planet** or `B` from the system teaser
 
 ## Project guides
 
