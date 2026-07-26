@@ -18,7 +18,7 @@ Allowed statuses are `Proposed`, `Accepted`, `Superseded`, and `Rejected`.
 
 ## Current state
 
-Eleven **Proposed** records and the [planetary slice spec](../../superpowers/specs/2026-07-26-planetary-slice-design.md) capture the homeworld vertical slice. None are **Accepted** until explicitly reviewed.
+Eleven **Accepted** records and the [planetary slice spec](../../superpowers/specs/2026-07-26-planetary-slice-design.md) capture the homeworld vertical slice. Decisions **001–011** are **Accepted** (2026-07-26).
 
 | Record                                                | Topic                                             |
 | ----------------------------------------------------- | ------------------------------------------------- |

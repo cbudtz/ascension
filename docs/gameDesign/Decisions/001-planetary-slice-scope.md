@@ -1,6 +1,6 @@
 # 001: Planetary slice scope and victory
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-07-26
 - Supersedes: None
 - Superseded by: None

@@ -1,6 +1,6 @@
 # 007: Solar system teaser view
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-07-26
 - Supersedes: None
 - Superseded by: None

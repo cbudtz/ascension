@@ -1,6 +1,6 @@
 # 004: Prosperity pool and population growth
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-07-26
 - Supersedes: None
 - Superseded by: None

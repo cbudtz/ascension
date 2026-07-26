@@ -1,6 +1,6 @@
 # 002: Homeworld hex map
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-07-26
 - Supersedes: None
 - Superseded by: None

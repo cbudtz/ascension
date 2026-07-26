@@ -1,6 +1,6 @@
 # 006: Civ-style research tree
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-07-26
 - Supersedes: None
 - Superseded by: None

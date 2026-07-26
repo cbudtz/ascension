@@ -1,6 +1,6 @@
 # 010: Slice-1 balance defaults and rule clarifications
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-07-26
 - Supersedes: None
 - Superseded by: None
