@@ -16,13 +16,13 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    files: ['src/**/*.ts'],
+    files: ['src/{presentation,bootstrap}/**/*.ts'],
     languageOptions: {
       globals: globals.browser,
     },
   },
   {
-    files: ['tests/**/*.ts', '*.config.{js,cjs,mjs,ts}'],
+    files: ['tests/e2e/**/*.ts', '*.config.{js,cjs,mjs,ts}'],
     languageOptions: {
       globals: globals.node,
     },
