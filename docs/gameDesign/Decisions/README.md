@@ -18,7 +18,7 @@ Allowed statuses are `Proposed`, `Accepted`, `Superseded`, and `Rejected`.
 
 ## Current state
 
-Nine **Proposed** records and the [planetary slice spec](../../superpowers/specs/2026-07-26-planetary-slice-design.md) capture the homeworld vertical slice. None are **Accepted** until explicitly reviewed.
+Ten **Proposed** records and the [planetary slice spec](../../superpowers/specs/2026-07-26-planetary-slice-design.md) capture the homeworld vertical slice. None are **Accepted** until explicitly reviewed.
 
 | Record                                                | Topic                                             |
 | ----------------------------------------------------- | ------------------------------------------------- |
@@ -30,6 +30,7 @@ Nine **Proposed** records and the [planetary slice spec](../../superpowers/specs
 | [006](006-civ-style-research-tree.md)                 | Civ-style tree, eight techs, proposed names       |
 | [007](007-solar-system-teaser.md)                     | Orbital Cartography, locked planets               |
 | [008](008-ascendancy-inspired-2d-hex-presentation.md) | 2D hex art direction                              |
-| [009](009-research-costs-and-capital-baseline.md)     | RP costs, capital +1 R/I                          |
+| [009](009-research-costs-and-capital-baseline.md)     | RP costs, capital baselines                       |
+| [010](010-slice-1-balance-defaults.md)                | Matching rules, terrain, queue, science unlock    |
 
-**Xenobiological Dig** and **Star Lane Anatomy** are separate future branches from the science path; xeno-site and travel complexity unlock later.
+Where earlier Proposed records conflict with **010**, **010 wins** for slice 1. Locked leaves stay grey with “future update” copy.

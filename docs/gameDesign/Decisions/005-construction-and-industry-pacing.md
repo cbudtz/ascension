@@ -13,7 +13,8 @@ Industry must feel impactful from turn 1. The player should reach the first cons
 
 - Construction uses a **turn-based queue**: industry output from workers and Factory bonuses applies to the active project each end-turn.
 - First-tier **Factory**, **Lab**, and **Farm** each cost **5 industry** to complete.
-- With **3 workers all on industry** (+3 industry/turn before building bonuses), the **first** such structure completes in **2 turns**.
+- With Colony Planning complete, **3 workers all on industry** and no Factory, industry/turn is **3** (1 capital-matched worker + two excess at 0.5 + capital baseline +1); the **first** 5-cost structure completes in **2 turns**.
+- Progress on an unfinished project is preserved if the player switches away and returns.
 - One building per hex; placing a milestone structure on a bonus tile is encouraged but not required for the slice win.
 
 ## Alternatives
@@ -28,4 +29,4 @@ Industry must feel impactful from turn 1. The player should reach the first cons
 
 ## Validation
 
-Deterministic test: 3 workers → industry, no Factory yet, capital industry 0, project cost 5 → complete on turn 2. Playtest: new player builds first structure in 2–3 turns when told to focus industry.
+Deterministic test: 3 workers → industry, no Factory yet, matching rules from decision 010, project cost 5 → complete after two construction turns. Playtest: new player builds first structure in 2–3 focused industry turns after Colony Planning.
