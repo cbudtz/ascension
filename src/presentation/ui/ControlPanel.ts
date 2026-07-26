@@ -15,7 +15,7 @@ export type ControlCommand =
 export type ControlPanelState = {
   readonly view: 'planet' | 'system';
   readonly snapshot: GameSnapshot;
-  readonly selectedBuilding: BuildingId;
+  readonly selectedBuilding: BuildingId | null;
   readonly message: string;
   readonly activeTechName: string | null;
   readonly projectLabel: string;
@@ -75,7 +75,7 @@ export class ControlPanel {
     );
     this.setText(
       '.js-project',
-      `Queue: ${state.projectLabel} · Build: ${state.selectedBuilding}`,
+      `Queue: ${state.projectLabel} · Build: ${state.selectedBuilding ?? 'none'}`,
     );
     this.setText(
       '.js-science',
@@ -163,7 +163,7 @@ export class ControlPanel {
                 `<button type="button" class="control-panel__button" data-command="select-building" data-building="${building.id}">${building.name}</button>`,
             ).join('')}
           </div>
-          <p class="control-panel__hint">Tap a hex to queue the selected building</p>
+          <p class="control-panel__hint">Research a blueprint, select it here, then tap a hex next to the capital</p>
         </div>
         <div class="control-panel__group">
           <p class="control-panel__label">Workers</p>

@@ -12,6 +12,7 @@ import {
   axialToPixel,
   BUILDING_COLORS,
   pixelToAxial,
+  pointyHexPolygonPoints,
   TERRAIN_COLORS,
 } from './hexRender';
 
@@ -20,8 +21,9 @@ const HEX_SIZE = 28;
 export class PlanetScene extends Phaser.Scene {
   private session!: GameSession;
   private mapRoot!: Phaser.GameObjects.Container;
-  private selectedBuilding: BuildingId = 'factory';
-  private message = '';
+  private selectedBuilding: BuildingId | null = null;
+  private message =
+    'End turn to unlock science, research a blueprint, then build beside the capital';
   private hudHost: HTMLElement | null = null;
   private controls: ControlPanel | null = null;
   private unsubscribeControls: (() => void) | null = null;
@@ -47,6 +49,12 @@ export class PlanetScene extends Phaser.Scene {
     }
 
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+      if (this.selectedBuilding === null) {
+        this.message =
+          'Select an unlocked building in the panel after researching its blueprint';
+        this.refresh();
+        return;
+      }
       const worldPoint = this.cameras.main.getWorldPoint(pointer.x, pointer.y);
       const localX = worldPoint.x - this.mapRoot.x;
       const localY = worldPoint.y - this.mapRoot.y;
@@ -90,8 +98,18 @@ export class PlanetScene extends Phaser.Scene {
       return;
     }
     if (command.type === 'select-building') {
+      const options = buildingOptionsFromSnapshot(
+        snapshot,
+        this.session.getContent().buildings,
+      );
+      const option = options.find((item) => item.id === command.buildingId);
+      if (option === undefined || !option.unlocked) {
+        this.message = `${command.buildingId} blueprint is still locked`;
+        this.refresh();
+        return;
+      }
       this.selectedBuilding = command.buildingId;
-      this.message = `Selected ${command.buildingId}`;
+      this.message = `Selected ${command.buildingId} — tap a hex beside the capital`;
       this.refresh();
       return;
     }
@@ -240,6 +258,7 @@ export class PlanetScene extends Phaser.Scene {
 
   private refresh(): void {
     const snapshot = this.session.snapshot();
+    this.ensureValidBuildingSelection(snapshot);
     this.drawMap(snapshot);
     this.centerMap();
     this.syncControls(snapshot);
@@ -251,6 +270,23 @@ export class PlanetScene extends Phaser.Scene {
         : 'locked';
       this.hudHost.dataset.victory = snapshot.victory ? 'true' : 'false';
     }
+  }
+
+  private ensureValidBuildingSelection(snapshot: GameSnapshot): void {
+    const options = buildingOptionsFromSnapshot(
+      snapshot,
+      this.session.getContent().buildings,
+    );
+    if (
+      this.selectedBuilding !== null &&
+      options.some(
+        (option) => option.id === this.selectedBuilding && option.unlocked,
+      )
+    ) {
+      return;
+    }
+    this.selectedBuilding =
+      options.find((option) => option.unlocked)?.id ?? null;
   }
 
   private syncControls(snapshot: GameSnapshot): void {
@@ -298,34 +334,36 @@ export class PlanetScene extends Phaser.Scene {
     const buildingByHex = new Map(
       snapshot.buildings.map((building) => [hexKey(building.hex), building]),
     );
+    const hexPoints = pointyHexPolygonPoints(HEX_SIZE);
 
     for (const cell of content.cells) {
       const point = axialToPixel(cell.hex, HEX_SIZE);
       const color = TERRAIN_COLORS[cell.terrain] ?? TERRAIN_COLORS.neutral;
+      const building = buildingByHex.get(hexKey(cell.hex));
+      const isCapital = building?.buildingId === 'capital';
       const hexagon = this.add
-        .polygon(point.x, point.y, this.hexPoints(HEX_SIZE), color, 1)
-        .setStrokeStyle(1, 0x0a1018, 0.9);
+        .polygon(point.x, point.y, hexPoints, color, 1)
+        .setStrokeStyle(
+          isCapital ? 3 : 1,
+          isCapital ? 0xf0d878 : 0x0a1018,
+          isCapital ? 1 : 0.9,
+        );
       this.mapRoot.add(hexagon);
 
-      const building = buildingByHex.get(hexKey(cell.hex));
       if (building !== undefined) {
+        if (isCapital) {
+          const halo = this.add.circle(point.x, point.y, 14);
+          halo.setStrokeStyle(2, 0xfff1b0, 1);
+          this.mapRoot.add(halo);
+        }
         const marker = this.add.circle(
           point.x,
           point.y,
-          building.buildingId === 'capital' ? 10 : 7,
+          isCapital ? 9 : 7,
           BUILDING_COLORS[building.buildingId] ?? 0xffffff,
         );
         this.mapRoot.add(marker);
       }
     }
-  }
-
-  private hexPoints(size: number): number[] {
-    const points: number[] = [];
-    for (let i = 0; i < 6; i += 1) {
-      const angle = (Math.PI / 180) * (60 * i - 30);
-      points.push(size * Math.cos(angle), size * Math.sin(angle));
-    }
-    return points;
   }
 }
