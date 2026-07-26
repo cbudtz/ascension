@@ -17,7 +17,8 @@ test('boots the homeworld planet view without browser errors', async ({
   await page.goto('/');
   await page.locator('#game[data-ready="true"]').waitFor();
   await expect(page.locator('#game canvas')).toBeVisible();
-  await expect(page.getByText('ASCENSION — Homeworld')).toBeVisible();
+  await expect(page.locator('#game')).toHaveAttribute('data-view', 'planet');
+  await expect(page.locator('#game')).toHaveAttribute('data-science', 'locked');
   expect(errors).toEqual([]);
 });
 
@@ -25,5 +26,6 @@ test('ending the first turn unlocks science', async ({ page }) => {
   await page.goto('/');
   await page.locator('#game[data-ready="true"]').waitFor();
   await page.keyboard.press('e');
-  await expect(page.getByText('Science: open')).toBeVisible();
+  await expect(page.locator('#game')).toHaveAttribute('data-science', 'open');
+  await expect(page.locator('#game')).toHaveAttribute('data-day', '1');
 });

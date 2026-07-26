@@ -18,6 +18,7 @@ export class PlanetScene extends Phaser.Scene {
   private mapRoot!: Phaser.GameObjects.Container;
   private selectedBuilding: BuildingId = 'factory';
   private message = '';
+  private hudHost: HTMLElement | null = null;
 
   public constructor() {
     super('planet');
@@ -62,6 +63,8 @@ export class PlanetScene extends Phaser.Scene {
     const parent = document.querySelector('#game');
     if (parent instanceof HTMLElement) {
       parent.dataset.ready = 'true';
+      parent.dataset.view = 'planet';
+      this.hudHost = parent;
     }
 
     this.refresh();
@@ -163,6 +166,14 @@ export class PlanetScene extends Phaser.Scene {
     this.drawMap(snapshot);
     this.centerMap();
     this.statusText.setText(this.buildHud(snapshot));
+    if (this.hudHost !== null) {
+      this.hudHost.dataset.view = 'planet';
+      this.hudHost.dataset.day = String(snapshot.day);
+      this.hudHost.dataset.science = snapshot.scienceUnlocked
+        ? 'open'
+        : 'locked';
+      this.hudHost.dataset.victory = snapshot.victory ? 'true' : 'false';
+    }
   }
 
   private centerMap(): void {
