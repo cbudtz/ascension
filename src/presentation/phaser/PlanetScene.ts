@@ -4,6 +4,11 @@ import type { GameSession, GameSnapshot } from '../../application/GameSession';
 import { hexKey } from '../../core/hex';
 import type { BuildingId, TechnologyId } from '../../core/types';
 import {
+  buildingOptionsFromSnapshot,
+  type ControlCommand,
+  type ControlPanel,
+} from '../ui/ControlPanel';
+import {
   axialToPixel,
   BUILDING_COLORS,
   pixelToAxial,
@@ -14,11 +19,12 @@ const HEX_SIZE = 28;
 
 export class PlanetScene extends Phaser.Scene {
   private session!: GameSession;
-  private statusText!: Phaser.GameObjects.Text;
   private mapRoot!: Phaser.GameObjects.Container;
   private selectedBuilding: BuildingId = 'factory';
   private message = '';
   private hudHost: HTMLElement | null = null;
+  private controls: ControlPanel | null = null;
+  private unsubscribeControls: (() => void) | null = null;
 
   public constructor() {
     super('planet');
@@ -31,20 +37,16 @@ export class PlanetScene extends Phaser.Scene {
   public create(): void {
     this.cameras.main.setBackgroundColor('#0b1524');
     this.mapRoot = this.add.container(0, 0);
-    this.statusText = this.add
-      .text(16, 12, '', {
-        color: '#d8e7ff',
-        fontFamily: 'Georgia, serif',
-        fontSize: '14px',
-        lineSpacing: 4,
-      })
-      .setScrollFactor(0)
-      .setDepth(10);
+
+    const controls = this.game.registry.get('controls');
+    if (controls !== undefined && controls !== null) {
+      this.controls = controls as ControlPanel;
+      this.unsubscribeControls = this.controls.onCommand((command) => {
+        this.handleCommand(command);
+      });
+    }
 
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-      if (pointer.y < 160) {
-        return;
-      }
       const worldPoint = this.cameras.main.getWorldPoint(pointer.x, pointer.y);
       const localX = worldPoint.x - this.mapRoot.x;
       const localY = worldPoint.y - this.mapRoot.y;
@@ -72,60 +74,131 @@ export class PlanetScene extends Phaser.Scene {
   }
 
   public shutdown(): void {
+    this.unsubscribeControls?.();
+    this.unsubscribeControls = null;
     this.input.keyboard?.removeAllListeners();
     this.input.removeAllListeners();
     this.scale.removeAllListeners();
   }
 
-  private handleKey(key: string): void {
+  private handleCommand(command: ControlCommand): void {
     const snapshot = this.session.snapshot();
-    if (key === 'enter' || key === 'e') {
+    if (command.type === 'end-turn') {
       const result = this.session.endTurn();
       this.message = result.ok ? `Day ${result.value.day}` : result.error;
       this.refresh();
       return;
     }
-    if (key === '1') this.selectedBuilding = 'factory';
-    if (key === '2') this.selectedBuilding = 'lab';
-    if (key === '3') this.selectedBuilding = 'farm';
-    if (key === '4') this.selectedBuilding = 'transitTube';
-    if (key === 'q' && snapshot.canChangeWorkers) {
+    if (command.type === 'select-building') {
+      this.selectedBuilding = command.buildingId;
+      this.message = `Selected ${command.buildingId}`;
+      this.refresh();
+      return;
+    }
+    if (command.type === 'set-workers') {
+      this.applyWorkerFocus(snapshot, command.focus);
+      this.refresh();
+      return;
+    }
+    if (command.type === 'cycle-research') {
+      this.cycleResearch(snapshot);
+      this.refresh();
+      return;
+    }
+    if (command.type === 'open-system' && snapshot.systemViewUnlocked) {
+      this.scene.start('system', { session: this.session });
+    }
+  }
+
+  private handleKey(key: string): void {
+    const snapshot = this.session.snapshot();
+    if (key === 'enter' || key === 'e') {
+      this.handleCommand({ type: 'end-turn' });
+      return;
+    }
+    if (key === '1') {
+      this.handleCommand({ type: 'select-building', buildingId: 'factory' });
+      return;
+    }
+    if (key === '2') {
+      this.handleCommand({ type: 'select-building', buildingId: 'lab' });
+      return;
+    }
+    if (key === '3') {
+      this.handleCommand({ type: 'select-building', buildingId: 'farm' });
+      return;
+    }
+    if (key === '4') {
+      this.handleCommand({
+        type: 'select-building',
+        buildingId: 'transitTube',
+      });
+      return;
+    }
+    if (key === 'q') {
+      this.handleCommand({ type: 'set-workers', focus: 'research' });
+      return;
+    }
+    if (key === 'w') {
+      this.handleCommand({ type: 'set-workers', focus: 'industry' });
+      return;
+    }
+    if (key === 'a') {
+      this.handleCommand({ type: 'set-workers', focus: 'prosperity' });
+      return;
+    }
+    if (key === 's') {
+      this.handleCommand({ type: 'set-workers', focus: 'balanced' });
+      return;
+    }
+    if (key === 'r') {
+      this.handleCommand({ type: 'cycle-research' });
+      return;
+    }
+    if (key === 'v' && snapshot.systemViewUnlocked) {
+      this.handleCommand({ type: 'open-system' });
+    }
+  }
+
+  private applyWorkerFocus(
+    snapshot: GameSnapshot,
+    focus: 'research' | 'industry' | 'prosperity' | 'balanced',
+  ): void {
+    if (!snapshot.canChangeWorkers) {
+      this.message = 'Colony Planning required to reassign workers';
+      return;
+    }
+    if (focus === 'research') {
       this.tryWorkers({
         research: snapshot.population,
         industry: 0,
         prosperity: 0,
       });
+      return;
     }
-    if (key === 'w' && snapshot.canChangeWorkers) {
+    if (focus === 'industry') {
       this.tryWorkers({
         research: 0,
         industry: snapshot.population,
         prosperity: 0,
       });
+      return;
     }
-    if (key === 'a' && snapshot.canChangeWorkers) {
+    if (focus === 'prosperity') {
       this.tryWorkers({
         research: 0,
         industry: 0,
         prosperity: snapshot.population,
       });
+      return;
     }
-    if (key === 's' && snapshot.canChangeWorkers) {
-      const share = Math.floor(snapshot.population / 3);
-      const remainder = snapshot.population - share * 3;
-      this.tryWorkers({
-        research: share + (remainder > 0 ? 1 : 0),
-        industry: share + (remainder > 1 ? 1 : 0),
-        prosperity: share,
-      });
-    }
-    if (key === 'r' && snapshot.scienceUnlocked) {
-      this.cycleResearch(snapshot);
-    }
-    if (key === 'v' && snapshot.systemViewUnlocked) {
-      this.scene.start('system', { session: this.session });
-    }
-    this.refresh();
+    const share = Math.floor(snapshot.population / 3);
+    const remainder = snapshot.population - share * 3;
+    this.tryWorkers({
+      research: share + (remainder > 0 ? 1 : 0),
+      industry: share + (remainder > 1 ? 1 : 0),
+      prosperity: share,
+    });
   }
 
   private tryWorkers(next: GameSnapshot['workers']): void {
@@ -134,6 +207,10 @@ export class PlanetScene extends Phaser.Scene {
   }
 
   private cycleResearch(snapshot: GameSnapshot): void {
+    if (!snapshot.scienceUnlocked) {
+      this.message = 'Science unlocks after the first end turn';
+      return;
+    }
     const content = this.session.getContent();
     const choices = content.technologies.filter((technology) => {
       if (!technology.researchableInSlice1) {
@@ -165,7 +242,7 @@ export class PlanetScene extends Phaser.Scene {
     const snapshot = this.session.snapshot();
     this.drawMap(snapshot);
     this.centerMap();
-    this.statusText.setText(this.buildHud(snapshot));
+    this.syncControls(snapshot);
     if (this.hudHost !== null) {
       this.hudHost.dataset.view = 'planet';
       this.hudHost.dataset.day = String(snapshot.day);
@@ -176,8 +253,43 @@ export class PlanetScene extends Phaser.Scene {
     }
   }
 
+  private syncControls(snapshot: GameSnapshot): void {
+    if (this.controls === null) {
+      return;
+    }
+    const content = this.session.getContent();
+    const active = content.technologies.find(
+      (technology) => technology.id === snapshot.activeTechnologyId,
+    );
+    const project = snapshot.construction
+      ? `${snapshot.construction.buildingId} ${snapshot.construction.progress}/${snapshot.construction.cost}`
+      : 'none';
+    const researchLines = content.technologies.map((technology) => {
+      const done = snapshot.completedTechnologies.includes(technology.id);
+      const progress = snapshot.researchProgress[technology.id] ?? 0;
+      if (!technology.researchableInSlice1) {
+        return `${technology.name}: future update`;
+      }
+      if (done) {
+        return `${technology.name}: done`;
+      }
+      return `${technology.name}: ${progress}/${technology.researchCost}`;
+    });
+
+    this.controls.update({
+      view: 'planet',
+      snapshot,
+      selectedBuilding: this.selectedBuilding,
+      message: this.message,
+      activeTechName: active?.name ?? null,
+      projectLabel: project,
+      researchLines,
+      buildingOptions: buildingOptionsFromSnapshot(snapshot, content.buildings),
+    });
+  }
+
   private centerMap(): void {
-    this.mapRoot.setPosition(this.scale.width * 0.55, this.scale.height * 0.55);
+    this.mapRoot.setPosition(this.scale.width * 0.5, this.scale.height * 0.52);
   }
 
   private drawMap(snapshot: GameSnapshot): void {
@@ -215,44 +327,5 @@ export class PlanetScene extends Phaser.Scene {
       points.push(size * Math.cos(angle), size * Math.sin(angle));
     }
     return points;
-  }
-
-  private buildHud(snapshot: GameSnapshot): string {
-    const content = this.session.getContent();
-    const active = content.technologies.find(
-      (technology) => technology.id === snapshot.activeTechnologyId,
-    );
-    const project = snapshot.construction
-      ? `${snapshot.construction.buildingId} ${snapshot.construction.progress}/${snapshot.construction.cost}`
-      : 'none';
-    const techLines = content.technologies
-      .map((technology) => {
-        const done = snapshot.completedTechnologies.includes(technology.id);
-        const progress = snapshot.researchProgress[technology.id] ?? 0;
-        if (!technology.researchableInSlice1) {
-          return `  ${technology.name}: future update`;
-        }
-        if (done) {
-          return `  ${technology.name}: done`;
-        }
-        return `  ${technology.name}: ${progress}/${technology.researchCost}`;
-      })
-      .join('\n');
-
-    return [
-      'ASCENSION — Homeworld',
-      `Day ${snapshot.day}   Pop ${snapshot.population}   Prosperity ${snapshot.prosperityPool}/10`,
-      `Workers R/I/P: ${snapshot.workers.research}/${snapshot.workers.industry}/${snapshot.workers.prosperity}${snapshot.canChangeWorkers ? '' : ' (locked)'}`,
-      `Output R/I/P: ${snapshot.production.research.total}/${snapshot.production.industry.total}/${snapshot.production.prosperity.total}`,
-      `Build select: ${this.selectedBuilding}   Queue: ${project}`,
-      `Science: ${snapshot.scienceUnlocked ? 'open' : 'unlocks after first end turn'}   Active: ${active?.name ?? 'none'}   Banked RP: ${snapshot.bankedResearch}`,
-      techLines,
-      snapshot.victory ? 'VICTORY — Factory, Lab, and Farm complete' : '',
-      snapshot.systemViewUnlocked ? 'Press V for solar system' : '',
-      'Keys: E end turn | 1 Factory 2 Lab 3 Farm 4 Tube | Q/W/A focus R/I/P | S balance | R cycle research | click hex to queue',
-      this.message,
-    ]
-      .filter((line) => line.length > 0)
-      .join('\n');
   }
 }

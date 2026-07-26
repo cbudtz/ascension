@@ -29,3 +29,13 @@ test('ending the first turn unlocks science', async ({ page }) => {
   await expect(page.locator('#game')).toHaveAttribute('data-science', 'open');
   await expect(page.locator('#game')).toHaveAttribute('data-day', '1');
 });
+
+test('control panel end-turn button unlocks science', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#game[data-ready="true"]').waitFor();
+  await expect(page.locator('#control-panel')).toBeVisible();
+  await page.locator('[data-command="end-turn"]').click();
+  await expect(page.locator('#game')).toHaveAttribute('data-science', 'open');
+  await expect(page.locator('#game')).toHaveAttribute('data-day', '1');
+  await expect(page.locator('.js-day')).toHaveText('Day 1');
+});
