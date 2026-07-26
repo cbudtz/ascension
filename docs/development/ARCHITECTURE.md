@@ -62,10 +62,10 @@ An invalid action returns a typed failure and leaves state unchanged. Do not par
 ### Application
 
 - **Responsibility:** use cases that coordinate core behavior and define ports required from the outside world.
-- **Public usage:** presentation calls use cases; bootstrap supplies adapter implementations.
+- **Public usage:** presentation calls use cases; bootstrap injects adapter implementations.
 - **Dependencies:** `core` only.
 
-Define persistence and seeded-randomness interfaces here when a use case needs them. Infrastructure implements persistence; bootstrap supplies the seeded random implementation. Passing a seed or port makes outcomes replayable and testable.
+Define persistence and seeded-randomness interfaces here when a use case needs them. Infrastructure implements both ports; bootstrap only constructs and injects those adapters. Passing a seed or port makes outcomes replayable and testable.
 
 ### Content
 
@@ -77,7 +77,7 @@ Content describes facts; it does not orchestrate use cases, render itself, or ac
 
 ### Infrastructure
 
-- **Responsibility:** adapters for persistence, serialization, storage, and other external services.
+- **Responsibility:** adapters for persistence, seeded randomness, serialization, storage, and other external services.
 - **Public usage:** bootstrap constructs adapters and passes them to application ports.
 - **Dependencies:** `application` and `core`.
 
@@ -107,6 +107,7 @@ Bootstrap contains composition, not game behavior.
 | “End turn” orchestration and its persistence/random ports | `application`         |
 | Technology costs and species definitions                  | `content`             |
 | Local-storage save adapter and save-schema validation     | `infrastructure`      |
+| Seeded PRNG adapter                                       | `infrastructure`      |
 | Hex selection input, camera controls, sprites, and HUD    | `presentation/phaser` |
 | Phaser configuration and adapter construction             | `bootstrap`           |
 

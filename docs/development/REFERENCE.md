@@ -28,6 +28,6 @@ This is a routing index, not a tutorial. Read only the source needed for the cur
 - [Playwright introduction](https://playwright.dev/docs/intro) — use this for browser-test setup, locators, assertions, and execution.
 - [dependency-cruiser rules](https://github.com/sverweij/dependency-cruiser/blob/main/doc/rules-reference.md) — use the rule schema when changing enforced import boundaries.
 - [ESLint configuration](https://eslint.org/docs/latest/use/configure/) — use flat-config documentation when changing lint scope or rules.
-- [Original Ascendancy gameplay manual scans](https://www.b-sting.nl/ascendancy/downloads.html) — consult the original manual link as historical gameplay input, not as an automatic product requirement.
+- [Ascendancy gameplay manual](https://www.b-sting.nl/ascendancy/downloads/Ascendancy_the_offline_manual_v1.0.pdf) — consult the manual as historical gameplay input, not as an automatic product requirement.
 
 Phaser 3 tutorials can conflict with Phaser 4 renderer and API behavior. Prefer documentation for the current installed package and inspect local installed TypeScript declarations before copying an older snippet.
