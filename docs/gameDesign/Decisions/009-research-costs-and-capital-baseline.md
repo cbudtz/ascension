@@ -23,7 +23,7 @@ Worker matching, capital free slot, and excess half-rates are defined in decisio
 
 | Tier          | Technologies                                                          | RP cost                           |
 | ------------- | --------------------------------------------------------------------- | --------------------------------- |
-| Root          | Colony Planning                                                       | **3**                             |
+| Root          | Colony Planning, Transit Tubes                                        | **3 each**                        |
 | Building      | Industrial Foundations, Research Methods, Environmental Encapsulation | **5 each**                        |
 | Space         | Orbital Cartography                                                   | **7**                             |
 | Locked leaves | Star Lane Anatomy, Xenobiological Dig, Mass Fabrication               | **12+** (display only in slice 1) |

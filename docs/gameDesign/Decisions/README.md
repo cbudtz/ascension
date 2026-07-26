@@ -18,7 +18,7 @@ Allowed statuses are `Proposed`, `Accepted`, `Superseded`, and `Rejected`.
 
 ## Current state
 
-Ten **Proposed** records and the [planetary slice spec](../../superpowers/specs/2026-07-26-planetary-slice-design.md) capture the homeworld vertical slice. None are **Accepted** until explicitly reviewed.
+Eleven **Proposed** records and the [planetary slice spec](../../superpowers/specs/2026-07-26-planetary-slice-design.md) capture the homeworld vertical slice. None are **Accepted** until explicitly reviewed.
 
 | Record                                                | Topic                                             |
 | ----------------------------------------------------- | ------------------------------------------------- |
@@ -27,10 +27,11 @@ Ten **Proposed** records and the [planetary slice spec](../../superpowers/specs/
 | [003](003-worker-economy-and-capital.md)              | Capital baseline, workers, Colony Planning unlock |
 | [004](004-prosperity-growth-pool.md)                  | Prosperity pool, Farms, population growth         |
 | [005](005-construction-and-industry-pacing.md)        | Queue, 5 industry cost, 2-turn first build        |
-| [006](006-civ-style-research-tree.md)                 | Civ-style tree, eight techs, proposed names       |
+| [006](006-civ-style-research-tree.md)                 | Civ-style tree, techs, proposed names             |
 | [007](007-solar-system-teaser.md)                     | Orbital Cartography, locked planets               |
 | [008](008-ascendancy-inspired-2d-hex-presentation.md) | 2D hex art direction                              |
 | [009](009-research-costs-and-capital-baseline.md)     | RP costs, capital baselines                       |
 | [010](010-slice-1-balance-defaults.md)                | Matching rules, terrain, queue, science unlock    |
+| [011](011-building-connectivity-and-transit-tubes.md) | Connectivity, Transit Tubes tech and building     |
 
-Where earlier Proposed records conflict with **010**, **010 wins** for slice 1. Locked leaves stay grey with “future update” copy.
+Where earlier Proposed records conflict with **010** or **011**, the higher number wins for slice 1. Locked leaves stay grey with “future update” copy.
