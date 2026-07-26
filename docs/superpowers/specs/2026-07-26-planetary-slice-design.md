@@ -23,50 +23,55 @@ Build a **Factory**, a **Lab**, and a **Farm** on the homeworld. The capital pro
 ## Starting state
 
 - **Capital only** — no separate starter Factory, Lab, or Farm.
-- Capital provides baseline R/I/P each turn.
-- **3 workers**, fixed at **1 / 1 / 1** (research / industry / farming) until **Colony Planning** is researched.
+- Capital provides baseline **+1 research, +1 industry, and +1 prosperity** each turn, plus **1 free matched worker slot per track**.
+- **3 workers**, fixed at **1 / 1 / 1** until **Colony Planning** is researched.
 - After Colony Planning, the player may **change worker focus** (presets or sliders). Default remains 1/1/1 until changed.
+- **No active technology** at start. After the first end-turn, science unlocks; **turn-1 research is banked** until a tech is selected.
 
 ## Worker and output model
 
-| Track      | Worker effect                    | Building effect                                                  | Sink                                        |
-| ---------- | -------------------------------- | ---------------------------------------------------------------- | ------------------------------------------- |
-| Research   | +1 research per assigned worker  | Lab adds flat bonus; understaffing reduces building contribution | Active technology progress bar              |
-| Industry   | +1 industry per assigned worker  | Factory adds flat bonus; second Factory at 0.5 if understaffed   | Construction queue progress                 |
-| Prosperity | +1 prosperity per farming worker | First Farm +1; second Farm +0.5 if understaffed                  | Prosperity pool toward population threshold |
+| Track      | Worker effect                                                                   | Building effect                                       | Sink                                        |
+| ---------- | ------------------------------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------- |
+| Research   | Matched +1; capital can match 1 worker with no Lab; further excess workers +0.5 | Matched Lab +1; excess Labs +0.5; matching terrain +1 | Active technology progress bar              |
+| Industry   | Same matching rules for Factory                                                 | Same for Factory                                      | Construction queue progress                 |
+| Prosperity | Same matching rules for Farm                                                    | Same for Farm                                         | Prosperity pool toward population threshold |
 
-- Research: Civ I/II style — full tree visible, one active technology, switching preserves partial progress.
-- Industry: turn-based construction queue; no separate industry pool.
-- Prosperity: slow accumulation until the first Farm exists; at threshold, gain +1 worker. Future buildings may lower the threshold (granary-style).
+Matching and capital free-slot rules: see decision 010.
+
+- Research: Civ I/II style — full tree visible, one active technology after science unlocks, switching preserves partial progress.
+- Industry: one active construction project; unfinished builds keep progress; no separate industry pool.
+- Prosperity: pool threshold **10** → +1 worker. Pre-Farm growth uses capital + farming workers; Farm adds building bonus.
 
 ## Construction pacing (slice 1)
 
 - First-tier **Factory**, **Lab**, and **Farm** each cost **5 industry** to complete.
-- With **3 workers** and **all assigned to industry** (+3 industry/turn), the first building finishes in **2 turns** (3 + 3 ≥ 5).
-- Terrain bonuses and capital baseline industry may adjust exact timing; the slice is tuned so focused industry play reaches the first build in two turns.
+- After Colony Planning, with **3 workers on industry** and no Factory: worker output **1 + 0.5 + 0.5**, capital **+1**, total **3 industry/turn** → first building finishes in **2 turns** (3 + 3 ≥ 5).
+- Neutral and bonus hexes are buildable; capital hex is not. Terrain matching adds **+1** when present.
+- New buildings must be **edge-adjacent** to the capital or a completed connected building (decision 011). Transit Tubes (2 industry) extend that network.
 
-## Research tree (slice 1, eight nodes)
+## Research tree (slice 1, nine nodes)
 
-Full tree visible from turn 1. Five nodes matter for this slice; three are locked placeholders for later systems.
+Full tree visible from turn 1. Six nodes matter for this slice; three are locked placeholders for later systems.
 
-| Tech                            | Prereqs                | Unlocks                                         |
-| ------------------------------- | ---------------------- | ----------------------------------------------- |
-| **Colony Planning**             | —                      | **Change worker focus** (R / I / farming split) |
-| **Industrial Foundations**      | —                      | Factory blueprint                               |
-| **Research Methods**            | —                      | Lab blueprint                                   |
-| **Environmental Encapsulation** | —                      | Farm blueprint                                  |
-| **Orbital Cartography**         | Research Methods       | Solar system view (homeworld + locked planets)  |
-| **Xenobiological Dig**          | Research Methods       | _Locked_ — xeno sites / dig bonuses (future)    |
-| **Star Lane Anatomy**           | Orbital Cartography    | _Locked_ — interstellar travel (future)         |
-| **Mass Fabrication**            | Industrial Foundations | _Locked_ — advanced industry (future)           |
+| Tech                            | Prereqs                | Unlocks                                           |
+| ------------------------------- | ---------------------- | ------------------------------------------------- |
+| **Colony Planning**             | —                      | **Change worker focus** (R / I / farming split)   |
+| **Transit Tubes**               | —                      | Transit Tube connector building (cost 2 industry) |
+| **Industrial Foundations**      | —                      | Factory blueprint                                 |
+| **Research Methods**            | —                      | Lab blueprint                                     |
+| **Environmental Encapsulation** | —                      | Farm blueprint                                    |
+| **Orbital Cartography**         | Research Methods       | Solar system view (homeworld + locked planets)    |
+| **Xenobiological Dig**          | Research Methods       | _Locked_ — xeno sites / dig bonuses (future)      |
+| **Star Lane Anatomy**           | Orbital Cartography    | _Locked_ — interstellar travel (future)           |
+| **Mass Fabrication**            | Industrial Foundations | _Locked_ — advanced industry (future)             |
 
-Queueing structures on unoccupied buildable hexes is available from turn 1 once the relevant **blueprint** technology is researched. Colony Planning does not gate placement; it gates **worker reassignment**.
+Queueing structures on unoccupied **connected** buildable hexes is allowed once the relevant **blueprint** technology is researched. **Connectivity** is required from turn 1 (decision 011). Colony Planning gates **worker reassignment** only. Transit Tubes unlocks cheap connectors that extend the connected footprint without production.
 
 Names nod to Ascendancy where appropriate (`Environmental Encapsulation`, `Star Lane Anatomy`, `Xenobiological Dig`) while keeping Civ-style clarity for roots and branches.
 
 ## Research costs (proposed)
 
-See decision 009. Summary: Colony Planning **3 RP**; building blueprints **5 RP**; Orbital Cartography **7 RP**. Capital provides **+1 research** and **+1 industry** per turn before workers.
+See decisions 009–011. Summary: Colony Planning **3 RP**; Transit Tubes **3 RP**; building blueprints **5 RP**; Orbital Cartography **7 RP**. Capital **+1 R/I/P**. Science selects after round 1; turn-1 RP is banked. Locked leaves are grey with “future update” copy.
 
 ## Turns
 
@@ -85,7 +90,7 @@ Discrete **days**. Player ends turn; capital output, worker production, research
 
 - Player can complete the milestone on the authored 37-hex map without bugs.
 - Worker sliders/presets affect research, construction, and prosperity as specified.
-- Research tree UI shows eight nodes; five are actionable in slice 1.
+- Research tree UI shows nine nodes; six are actionable in slice 1.
 - Orbital Cartography opens solar system view with locked planets only.
 - Core rules are testable without Phaser; presentation matches Ascendancy-inspired 2D hex look.
 

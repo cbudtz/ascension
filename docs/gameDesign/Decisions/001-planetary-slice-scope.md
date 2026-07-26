@@ -1,6 +1,6 @@
 # 001: Planetary slice scope and victory
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-07-26
 - Supersedes: None
 - Superseded by: None
@@ -22,7 +22,7 @@ Slice 1 is a single homeworld with discrete turn-based days. The player wins by 
 ## Consequences
 
 - Implementation can focus on one planet scene plus one system scene.
-- Content authoring targets one 37-hex map and eight visible tech nodes.
+- Content authoring targets one 37-hex map and nine visible tech nodes (six actionable).
 - PRs can be reviewed against a single milestone.
 
 ## Validation

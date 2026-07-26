@@ -1,6 +1,6 @@
 # 009: Research costs and capital baseline
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-07-26
 - Supersedes: None
 - Superseded by: None
@@ -15,22 +15,24 @@ Research pacing must stay in step with the 5-industry construction loop. Costs s
 
 - **+1 research**
 - **+1 industry**
-- **+0 prosperity** until the first Farm exists
+- **+1 prosperity**
+
+Worker matching, capital free slot, and excess half-rates are defined in decision 010 (010 wins if this record conflicts).
 
 **Research point costs:**
 
 | Tier          | Technologies                                                          | RP cost                           |
 | ------------- | --------------------------------------------------------------------- | --------------------------------- |
-| Root          | Colony Planning                                                       | **3**                             |
+| Root          | Colony Planning, Transit Tubes                                        | **3 each**                        |
 | Building      | Industrial Foundations, Research Methods, Environmental Encapsulation | **5 each**                        |
 | Space         | Orbital Cartography                                                   | **7**                             |
 | Locked leaves | Star Lane Anatomy, Xenobiological Dig, Mass Fabrication               | **12+** (display only in slice 1) |
 
-**Building bonuses when constructed:** Lab **+1 research**, Factory **+1 industry**, Farm **+1 prosperity** (in addition to worker rules in decision 003).
+**Building bonuses when constructed:** Lab / Factory / Farm contribute through the matching rules in decision 010 (full +1 when matched; +0.5 when excess).
 
 Rhyme: **5 RP** to unlock a building type, **5 industry** to construct it.
 
-With default **1/1/1** workers after Colony Planning, effective research is **2 RP/turn** (1 worker + capital). Colony Planning completes in ~2 turns; a building tech in ~3; Orbital Cartography in ~4, landing around when the first milestone structure finishes if the player alternates research and construction.
+No tech is active at start. After round 1, science unlocks and banked turn-1 RP applies to the selected tech. With default **1/1/1** after Colony Planning, effective research is capital +1 plus one capital-matched research worker (+1) unless a Lab adds more.
 
 ## Alternatives
 
@@ -46,4 +48,4 @@ With default **1/1/1** workers after Colony Planning, effective research is **2 
 
 ## Validation
 
-Deterministic tests: at 2 RP/turn, Colony Planning completes on turn 2; at 3 industry/turn focused, first 5-industry building completes on turn 2. Playtest: median time to first building + Orbital unlock within ~8–12 turns without cheats.
+Deterministic tests: at 2 RP/turn after selection, Colony Planning completes on turn 2 of research; focused industry without Factory yields 3 industry/turn and finishes a 5-cost build in 2 turns (see decision 010). Playtest: median time to first building + Orbital unlock within ~8–12 turns without cheats.

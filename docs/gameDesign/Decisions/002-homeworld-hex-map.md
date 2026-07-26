@@ -1,6 +1,6 @@
 # 002: Homeworld hex map
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-07-26
 - Supersedes: None
 - Superseded by: None
@@ -23,7 +23,7 @@ The homeworld uses a **hand-authored, fully revealed** hex map of about **37 til
 
 - Content ships as data for one map layout and terrain assignment.
 - Presentation renders a 2D hex grid with terrain tinting.
-- Adjacency rules can be added later without changing the map format.
+- Adjacency rules and connectivity can be enforced without changing the map format.
 
 ## Validation
 
