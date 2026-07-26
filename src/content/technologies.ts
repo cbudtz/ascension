@@ -1,0 +1,73 @@
+import type { TechnologyDefinition } from './definitions';
+
+export const TECHNOLOGIES: ReadonlyArray<TechnologyDefinition> = [
+  {
+    id: 'colonyPlanning',
+    name: 'Colony Planning',
+    researchCost: 3,
+    prerequisites: [],
+    researchableInSlice1: true,
+    unlocksWorkerFocus: true,
+  },
+  {
+    id: 'transitTubes',
+    name: 'Transit Tubes',
+    researchCost: 3,
+    prerequisites: [],
+    researchableInSlice1: true,
+    unlocksBuilding: 'transitTube',
+  },
+  {
+    id: 'industrialFoundations',
+    name: 'Industrial Foundations',
+    researchCost: 5,
+    prerequisites: [],
+    researchableInSlice1: true,
+    unlocksBuilding: 'factory',
+  },
+  {
+    id: 'researchMethods',
+    name: 'Research Methods',
+    researchCost: 5,
+    prerequisites: [],
+    researchableInSlice1: true,
+    unlocksBuilding: 'lab',
+  },
+  {
+    id: 'environmentalEncapsulation',
+    name: 'Environmental Encapsulation',
+    researchCost: 5,
+    prerequisites: [],
+    researchableInSlice1: true,
+    unlocksBuilding: 'farm',
+  },
+  {
+    id: 'orbitalCartography',
+    name: 'Orbital Cartography',
+    researchCost: 7,
+    prerequisites: ['researchMethods'],
+    researchableInSlice1: true,
+    unlocksSystemView: true,
+  },
+  {
+    id: 'xenobiologicalDig',
+    name: 'Xenobiological Dig',
+    researchCost: 12,
+    prerequisites: ['researchMethods'],
+    researchableInSlice1: false,
+  },
+  {
+    id: 'starLaneAnatomy',
+    name: 'Star Lane Anatomy',
+    researchCost: 12,
+    prerequisites: ['orbitalCartography'],
+    researchableInSlice1: false,
+  },
+  {
+    id: 'massFabrication',
+    name: 'Mass Fabrication',
+    researchCost: 12,
+    prerequisites: ['industrialFoundations'],
+    researchableInSlice1: false,
+  },
+];

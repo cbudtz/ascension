@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 
-test('boots Phaser without browser errors', async ({ page }) => {
+test('boots the homeworld planet view without browser errors', async ({
+  page,
+}) => {
   const errors: string[] = [];
 
   page.on('console', (message) => {
@@ -14,7 +16,14 @@ test('boots Phaser without browser errors', async ({ page }) => {
 
   await page.goto('/');
   await page.locator('#game[data-ready="true"]').waitFor();
-
   await expect(page.locator('#game canvas')).toBeVisible();
+  await expect(page.getByText('ASCENSION — Homeworld')).toBeVisible();
   expect(errors).toEqual([]);
+});
+
+test('ending the first turn unlocks science', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#game[data-ready="true"]').waitFor();
+  await page.keyboard.press('e');
+  await expect(page.getByText('Science: open')).toBeVisible();
 });

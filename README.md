@@ -4,7 +4,7 @@ Ascension is an independent browser strategy-game project inspired by the ideas 
 
 ## Status
 
-The repository currently contains the development foundation only: toolchain, architecture enforcement, and a Phaser boot proof. No gameplay is implemented. Gameplay design resumes after the foundation is complete.
+Playable **planetary slice 1**: homeworld hex colony with workers, Civ-style research, connected construction (including Transit Tubes), milestone victory (Factory + Lab + Farm), and a solar-system teaser after Orbital Cartography.
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ npm install
 npx playwright install chromium
 ```
 
-The second command installs the Chromium browser used by `npm run test:e2e`.
+The Chromium install is required for `npm run test:e2e`.
 
 ## Commands
 
@@ -29,7 +29,15 @@ npm run test:e2e
 npm run build
 ```
 
-`npm run dev` starts the local Vite server. `npm run check` runs formatting, lint, architecture, type, unit-test, and production-build checks. Browser integration tests run separately with `npm run test:e2e`.
+## Controls (planet view)
+
+- `E` / `Enter` — end turn
+- `1`–`4` — select Factory / Lab / Farm / Transit Tube
+- Click hex — queue selected building
+- `Q` / `W` / `A` — focus all workers on research / industry / prosperity (after Colony Planning)
+- `S` — balanced workers
+- `R` — cycle researchable technologies (after first turn)
+- `V` — solar system (after Orbital Cartography)
 
 ## Project guides
 
@@ -39,3 +47,4 @@ npm run build
 - [Optimized references](docs/development/REFERENCE.md)
 - [Technical decisions](docs/development/Decisions/README.md)
 - [Game-design decisions](docs/gameDesign/Decisions/README.md)
+- [Planetary slice design](docs/superpowers/specs/2026-07-26-planetary-slice-design.md)
